@@ -1,0 +1,1028 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ScienceMatrix | Modern Science & Tech Tutorials</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        navy: {
+                            800: '#0b2545',
+                            900: '#051923',
+                            950: '#020d18'
+                        },
+                        teal: {
+                            500: '#00a896',
+                            600: '#008072',
+                        },
+                        mint: {
+                            400: '#02c39a',
+                            500: '#00a896',
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <!-- Google Fonts & Font Awesome Icons -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+        /* Custom scrollbars */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: rgba(0, 0, 0, 0.05);
+        }
+        .dark ::-webkit-scrollbar-track {
+            background: rgba(255, 255, 255, 0.05);
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #00a896;
+            border-radius: 4px;
+        }
+        /* Pulsing Glow Animation */
+        @keyframes pulseGlow {
+            0%, 100% { opacity: 0.4; transform: scale(1); }
+            50% { opacity: 0.8; transform: scale(1.05); }
+        }
+        .glow-effect {
+            animation: pulseGlow 4s infinite ease-in-out;
+        }
+        .glass-card {
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(12px);
+        }
+        .dark .glass-card {
+            background: rgba(11, 37, 69, 0.85);
+            backdrop-filter: blur(12px);
+        }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-800 dark:bg-navy-950 dark:text-slate-100 min-h-screen flex flex-col antialiased">
+
+    <header class="sticky top-0 z-40 bg-white/90 dark:bg-navy-900/90 backdrop-blur-md border-b border-slate-200 dark:border-navy-800 transition-colors">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between gap-4">
+            
+            <!-- Logo -->
+            <a href="#" class="flex items-center gap-3 group shrink-0">
+                <div class="w-11 h-11 rounded-xl bg-gradient-to-tr from-teal-500 to-mint-400 flex items-center justify-center text-white text-xl shadow-lg shadow-teal-500/20 group-hover:scale-105 transition-transform">
+                    <i class="fa-solid font-bold fa-atom"></i>
+                </div>
+                <div class="flex flex-col">
+                    <span class="text-2xl font-extrabold tracking-tight text-navy-800 dark:text-white leading-none">
+                        Science<span class="text-teal-500">Matrix</span>
+                    </span>
+                    <span class="text-[10px] font-semibold text-teal-600 dark:text-mint-400 tracking-widest uppercase mt-1">Tutorial Hub &amp; Labs</span>
+                </div>
+            </a>
+
+            <!-- Search Bar (Desktop) -->
+            <div class="hidden md:flex items-center flex-1 max-w-md mx-6 relative">
+                <i class="fa-solid fa-magnifying-glass absolute left-3.5 text-slate-400 dark:text-slate-500 text-sm"></i>
+                <input type="text" id="global-search" placeholder="Search tutorials, code, concepts..." 
+                    class="w-full pl-10 pr-4 py-2 text-sm rounded-full bg-slate-100 dark:bg-navy-800 border border-transparent focus:border-teal-500 dark:focus:border-teal-500 focus:outline-none focus:ring-2 focus:ring-teal-500/20 text-slate-800 dark:text-slate-100 placeholder-slate-400 transition-all">
+            </div>
+
+            <!-- Navigation Links -->
+            <nav class="hidden lg:flex items-center space-x-6 text-sm font-semibold">
+                <a href="#hero" class="text-slate-700 dark:text-slate-200 hover:text-teal-500 dark:hover:text-mint-400 transition-colors">Home</a>
+                <a href="#tutorials" class="text-slate-700 dark:text-slate-200 hover:text-teal-500 dark:hover:text-mint-400 transition-colors">Tutorials</a>
+                <a href="#labs" class="text-slate-700 dark:text-slate-200 hover:text-teal-500 dark:hover:text-mint-400 transition-colors">Interactive Labs</a>
+                <a href="#about" class="text-slate-700 dark:text-slate-200 hover:text-teal-500 dark:hover:text-mint-400 transition-colors">About</a>
+                <a href="#contact" class="text-slate-700 dark:text-slate-200 hover:text-teal-500 dark:hover:text-mint-400 transition-colors">Contact</a>
+            </nav>
+
+            <!-- Actions & Theme Toggle -->
+            <div class="flex items-center gap-3">
+                <button id="theme-toggle" title="Toggle Light/Dark Theme" class="p-2.5 rounded-full bg-slate-100 dark:bg-navy-800 text-slate-600 dark:text-slate-300 hover:text-teal-500 dark:hover:text-mint-400 focus:outline-none transition-colors">
+                    <i id="theme-toggle-dark-icon" class="fa-solid fa-moon text-lg hidden"></i>
+                    <i id="theme-toggle-light-icon" class="fa-solid fa-sun text-lg"></i>
+                </button>
+
+                <a href="#labs" class="hidden sm:inline-flex items-center gap-2 px-4 py-2 text-sm font-bold rounded-lg bg-teal-500 text-white hover:bg-teal-600 shadow-md shadow-teal-500/20 transition-all">
+                    <i class="fa-solid fa-flask text-xs"></i> Open Sandbox
+                </a>
+
+                <!-- Mobile Menu Button -->
+                <button id="mobile-menu-btn" class="lg:hidden p-2 rounded-lg text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-navy-800">
+                    <i class="fa-solid fa-bars text-xl"></i>
+                </button>
+            </div>
+        </div>
+
+        <!-- Mobile Navigation Menu -->
+        <div id="mobile-menu" class="hidden lg:hidden border-t border-slate-200 dark:border-navy-800 bg-white dark:bg-navy-900 px-4 pt-3 pb-6 space-y-3">
+            <div class="relative mb-3">
+                <i class="fa-solid fa-magnifying-glass absolute left-3.5 top-3 text-slate-400 text-sm"></i>
+                <input type="text" id="mobile-search" placeholder="Search topics..." 
+                    class="w-full pl-10 pr-4 py-2 text-sm rounded-lg bg-slate-100 dark:bg-navy-800 border border-transparent focus:outline-none text-slate-800 dark:text-slate-100">
+            </div>
+            <a href="#hero" class="mobile-link block py-2 text-slate-700 dark:text-slate-200 font-semibold">Home</a>
+            <a href="#tutorials" class="mobile-link block py-2 text-slate-700 dark:text-slate-200 font-semibold">Tutorials</a>
+            <a href="#labs" class="mobile-link block py-2 text-slate-700 dark:text-slate-200 font-semibold">Interactive Labs</a>
+            <a href="#about" class="mobile-link block py-2 text-slate-700 dark:text-slate-200 font-semibold">About Us</a>
+            <a href="#contact" class="mobile-link block py-2 text-slate-700 dark:text-slate-200 font-semibold">Contact</a>
+        </div>
+    </header>
+
+    <section id="hero" class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-8 pb-12">
+        <div class="relative rounded-3xl overflow-hidden shadow-2xl bg-navy-800 min-h-[460px] flex items-center">
+            
+            <!-- Slide Background Glows -->
+            <div class="absolute -top-24 -right-24 w-96 h-96 bg-teal-500/20 rounded-full blur-3xl glow-effect pointer-events-none"></div>
+            <div class="absolute -bottom-24 -left-24 w-96 h-96 bg-mint-500/20 rounded-full blur-3xl glow-effect pointer-events-none"></div>
+
+            <!-- Slides Container -->
+            <div id="slider-container" class="w-full relative z-10">
+                
+                <!-- Slide 1 -->
+                <div class="slide-item active p-8 sm:p-12 md:p-16 transition-opacity duration-700 ease-in-out">
+                    <div class="max-w-2xl space-y-6">
+                        <span class="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider bg-teal-500/20 text-mint-400 border border-teal-500/30">
+                            <i class="fa-solid fa-bolt"></i> Featured Tutorial
+                        </span>
+                        <h1 class="text-3xl sm:text-5xl font-black text-white leading-tight">
+                            Quantum Computing: From Qubits to Quantum Algorithms
+                        </h1>
+                        <p class="text-slate-300 text-base sm:text-lg leading-relaxed">
+                            Deconstruct superposition, entanglement, and quantum gates with clean visual breakdowns and step-by-step mathematical logic.
+                        </p>
+                        <div class="flex flex-wrap items-center gap-4 pt-2">
+                            <button onclick="openTutorialModal(1)" class="px-6 py-3 rounded-xl bg-gradient-to-r from-teal-500 to-mint-400 text-navy-950 font-bold hover:shadow-lg hover:shadow-mint-400/25 transition-all flex items-center gap-2">
+                                Read Full Tutorial <i class="fa-solid fa-arrow-right"></i>
+                            </button>
+                            <a href="#labs" class="px-6 py-3 rounded-xl bg-white/10 hover:bg-white/20 text-white font-semibold backdrop-blur-sm transition-all border border-white/10">
+                                Launch Simulation
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Slide 2 -->
+                <div class="slide-item hidden p-8 sm:p-12 md:p-16 transition-opacity duration-700 ease-in-out">
+                    <div class="max-w-2xl space-y-6">
+                        <span class="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider bg-emerald-500/20 text-emerald-300 border border-emerald-500/30">
+                            <i class="fa-solid fa-dna"></i> Genetics &amp; Biotech
+                        </span>
+                        <h2 class="text-3xl sm:text-5xl font-black text-white leading-tight">
+                            CRISPR &amp; Gene Editing: Visual Molecular Mechanics
+                        </h2>
+                        <p class="text-slate-300 text-base sm:text-lg leading-relaxed">
+                            Understand how Cas9 acts as molecular scissors to modify DNA sequences through interactive sequence visualizers and real models.
+                        </p>
+                        <div class="flex flex-wrap items-center gap-4 pt-2">
+                            <button onclick="openTutorialModal(2)" class="px-6 py-3 rounded-xl bg-gradient-to-r from-teal-500 to-mint-400 text-navy-950 font-bold hover:shadow-lg transition-all flex items-center gap-2">
+                                Read Guide <i class="fa-solid fa-arrow-right"></i>
+                            </button>
+                            <a href="#dna-builder" class="px-6 py-3 rounded-xl bg-white/10 hover:bg-white/20 text-white font-semibold backdrop-blur-sm transition-all border border-white/10">
+                                Try DNA Builder
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Slide 3 -->
+                <div class="slide-item hidden p-8 sm:p-12 md:p-16 transition-opacity duration-700 ease-in-out">
+                    <div class="max-w-2xl space-y-6">
+                        <span class="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider bg-sky-500/20 text-sky-300 border border-sky-500/30">
+                            <i class="fa-solid fa-code"></i> Data Science &amp; Python
+                        </span>
+                        <h2 class="text-3xl sm:text-5xl font-black text-white leading-tight">
+                            Scientific Python: Modeling Neural Networks from Scratch
+                        </h2>
+                        <p class="text-slate-300 text-base sm:text-lg leading-relaxed">
+                            Build clean forward propagation and backpropagation loops using NumPy without relying on black-box frameworks.
+                        </p>
+                        <div class="flex flex-wrap items-center gap-4 pt-2">
+                            <button onclick="openTutorialModal(3)" class="px-6 py-3 rounded-xl bg-gradient-to-r from-teal-500 to-mint-400 text-navy-950 font-bold hover:shadow-lg transition-all flex items-center gap-2">
+                                Read Tutorial <i class="fa-solid fa-arrow-right"></i>
+                            </button>
+                            <a href="#playground" class="px-6 py-3 rounded-xl bg-white/10 hover:bg-white/20 text-white font-semibold backdrop-blur-sm transition-all border border-white/10">
+                                Code Playground
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- Slider Controls -->
+            <button id="prev-slide" title="Previous Slide" class="absolute left-4 z-20 w-10 h-10 rounded-full bg-black/40 hover:bg-black/70 text-white flex items-center justify-center backdrop-blur-sm transition-all">
+                <i class="fa-solid fa-chevron-left"></i>
+            </button>
+            <button id="next-slide" title="Next Slide" class="absolute right-4 z-20 w-10 h-10 rounded-full bg-black/40 hover:bg-black/70 text-white flex items-center justify-center backdrop-blur-sm transition-all">
+                <i class="fa-solid fa-chevron-right"></i>
+            </button>
+
+            <!-- Dots Indicator -->
+            <div class="absolute bottom-6 left-1/2 -translate-x-1/2 z-20 flex gap-2">
+                <button class="dot-btn w-8 h-2 rounded-full bg-mint-400 transition-all" data-index="0"></button>
+                <button class="dot-btn w-2 h-2 rounded-full bg-white/40 hover:bg-white/70 transition-all" data-index="1"></button>
+                <button class="dot-btn w-2 h-2 rounded-full bg-white/40 hover:bg-white/70 transition-all" data-index="2"></button>
+            </div>
+        </div>
+    </section>
+
+    <section id="about" class="py-16 bg-white dark:bg-navy-900 border-y border-slate-200/80 dark:border-navy-800 transition-colors">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-3xl mx-auto mb-12">
+                <h2 class="text-xs font-bold uppercase tracking-widest text-teal-600 dark:text-mint-400 mb-2">Our Mission</h2>
+                <h3 class="text-3xl sm:text-4xl font-extrabold text-navy-800 dark:text-white">Demystifying Science Through Intuitive Learning</h3>
+                <p class="mt-4 text-slate-600 dark:text-slate-300 text-lg">
+                    At ScienceMatrix, we translate complex mathematical, physical, biological, and computational principles into clear, interactive, and actionable guides.
+                </p>
+            </div>
+
+            <!-- Features Grid -->
+            <div class="grid md:grid-cols-3 gap-8">
+                <!-- Feature 1 -->
+                <div class="p-8 rounded-2xl bg-slate-50 dark:bg-navy-800/50 border border-slate-200/80 dark:border-navy-700/50 hover:shadow-xl transition-all">
+                    <div class="w-12 h-12 rounded-xl bg-teal-500/10 text-teal-500 dark:text-mint-400 flex items-center justify-center text-2xl mb-6">
+                        <i class="fa-solid fa-eye"></i>
+                    </div>
+                    <h4 class="text-xl font-bold text-navy-800 dark:text-white mb-3">Visual First Explanations</h4>
+                    <p class="text-slate-600 dark:text-slate-300 text-sm leading-relaxed">
+                        Say goodbye to dense walls of abstract text. Our guides utilize diagrams, animations, and interactive models so you can visualize the underlying physics and code.
+                    </p>
+                </div>
+
+                <!-- Feature 2 -->
+                <div class="p-8 rounded-2xl bg-slate-50 dark:bg-navy-800/50 border border-slate-200/80 dark:border-navy-700/50 hover:shadow-xl transition-all">
+                    <div class="w-12 h-12 rounded-xl bg-teal-500/10 text-teal-500 dark:text-mint-400 flex items-center justify-center text-2xl mb-6">
+                        <i class="fa-solid fa-cubes-stacked"></i>
+                    </div>
+                    <h4 class="text-xl font-bold text-navy-800 dark:text-white mb-3">Project &amp; Code Sandbox</h4>
+                    <p class="text-slate-600 dark:text-slate-300 text-sm leading-relaxed">
+                        Theory without practice is incomplete. Test your understanding with live browser sandboxes, molecular sequence visualizers, and customizable code snippets.
+                    </p>
+                </div>
+
+                <!-- Feature 3 -->
+                <div class="p-8 rounded-2xl bg-slate-50 dark:bg-navy-800/50 border border-slate-200/80 dark:border-navy-700/50 hover:shadow-xl transition-all">
+                    <div class="w-12 h-12 rounded-xl bg-teal-500/10 text-teal-500 dark:text-mint-400 flex items-center justify-center text-2xl mb-6">
+                        <i class="fa-solid fa-layer-group"></i>
+                    </div>
+                    <h4 class="text-xl font-bold text-navy-800 dark:text-white mb-3">Structured Knowledge Grid</h4>
+                    <p class="text-slate-600 dark:text-slate-300 text-sm leading-relaxed">
+                        Seamlessly navigate across connected fields—from organic chemistry mechanisms to quantum mechanics, data algorithms, and bio-engineering.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="labs" class="py-16 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="mb-10 text-center sm:text-left flex flex-col sm:flex-row items-center justify-between gap-4">
+            <div>
+                <span class="text-xs font-bold uppercase tracking-widest text-teal-600 dark:text-mint-400">Simulation Hub</span>
+                <h2 class="text-3xl font-black text-navy-800 dark:text-white mt-1">Interactive Science Matrix Labs</h2>
+            </div>
+            <!-- Lab Selector Tabs -->
+            <div class="inline-flex p-1 rounded-xl bg-slate-200 dark:bg-navy-800 text-xs font-bold">
+                <button id="tab-atom" onclick="switchLab('atom')" class="lab-tab-btn px-4 py-2 rounded-lg bg-white dark:bg-teal-500 text-navy-800 dark:text-white shadow-sm transition-all">
+                    ⚛️ Atomic Visualizer
+                </button>
+                <button id="tab-dna" onclick="switchLab('dna')" class="lab-tab-btn px-4 py-2 rounded-lg text-slate-600 dark:text-slate-300 hover:text-navy-800 dark:hover:text-white transition-all">
+                    🧬 DNA Builder
+                </button>
+                <button id="tab-code" onclick="switchLab('code')" class="lab-tab-btn px-4 py-2 rounded-lg text-slate-600 dark:text-slate-300 hover:text-navy-800 dark:hover:text-white transition-all">
+                    💻 Code Playground
+                </button>
+            </div>
+        </div>
+
+        <!-- LAB 1: Atomic Visualizer Sandbox -->
+        <div id="lab-atom-view" class="lab-content rounded-3xl bg-navy-900 border border-navy-800 p-6 sm:p-8 text-white shadow-2xl">
+            <div class="grid lg:grid-cols-3 gap-8 items-center">
+                
+                <!-- Canvas Area -->
+                <div class="lg:col-span-2 relative flex items-center justify-center bg-navy-950 rounded-2xl min-h-[380px] p-4 overflow-hidden border border-navy-800">
+                    <canvas id="atomic-canvas" class="w-full h-full max-h-[360px]"></canvas>
+                    <div class="absolute top-4 left-4 bg-navy-900/80 px-3 py-1.5 rounded-lg border border-navy-700 text-xs text-mint-400 font-mono">
+                        Element: <span id="atom-name-display" class="font-bold text-white">Carbon (C)</span>
+                    </div>
+                </div>
+
+                <!-- Controls -->
+                <div class="space-y-6">
+                    <div>
+                        <h3 class="text-xl font-bold text-white mb-2">Atomic Orbital Simulator</h3>
+                        <p class="text-xs text-slate-400">Adjust the atomic parameters to visualize electrons orbiting nucleus energy levels in real-time.</p>
+                    </div>
+
+                    <div class="space-y-4 font-mono text-xs">
+                        <div>
+                            <div class="flex justify-between text-slate-300 mb-1">
+                                <span>Protons / Atomic No. (Z):</span>
+                                <span id="protons-val" class="text-mint-400 font-bold">6</span>
+                            </div>
+                            <input type="range" id="protons-slider" min="1" max="12" value="6" class="w-full accent-teal-500 cursor-pointer">
+                        </div>
+
+                        <div>
+                            <div class="flex justify-between text-slate-300 mb-1">
+                                <span>Orbit Speed:</span>
+                                <span id="speed-val" class="text-mint-400 font-bold">1.5x</span>
+                            </div>
+                            <input type="range" id="speed-slider" min="0.5" max="3" step="0.1" value="1.5" class="w-full accent-teal-500 cursor-pointer">
+                        </div>
+                    </div>
+
+                    <div class="p-4 rounded-xl bg-navy-800/60 border border-navy-700/60 space-y-2 text-xs">
+                        <div class="flex justify-between"><span class="text-slate-400">Electrons Count:</span> <span id="electron-count" class="font-bold text-teal-400">6</span></div>
+                        <div class="flex justify-between"><span class="text-slate-400">Valence Shell:</span> <span id="valence-count" class="font-bold text-mint-400">4</span></div>
+                        <div class="flex justify-between"><span class="text-slate-400">Category:</span> <span id="atom-category" class="font-bold text-amber-400">Non-metal</span></div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- LAB 2: DNA Sequence Visualizer -->
+        <div id="lab-dna-view" class="lab-content hidden rounded-3xl bg-navy-900 border border-navy-800 p-6 sm:p-8 text-white shadow-2xl">
+            <div class="space-y-6">
+                <div>
+                    <h3 class="text-xl font-bold text-white">DNA Base Pair Sequence Builder</h3>
+                    <p class="text-xs text-slate-400">Synthesize customized DNA strands and generate complementary RNA transcription sequences instantly.</p>
+                </div>
+
+                <!-- Interactive DNA Sequence Display -->
+                <div class="bg-navy-950 p-6 rounded-2xl border border-navy-800 flex flex-col items-center justify-center min-h-[180px] overflow-x-auto">
+                    <!-- Strand 5'-3' -->
+                    <div class="flex items-center gap-2 mb-3">
+                        <span class="text-xs font-mono text-teal-400 font-bold">5' -</span>
+                        <div id="dna-strand-primary" class="flex gap-2"></div>
+                        <span class="text-xs font-mono text-teal-400 font-bold">- 3'</span>
+                    </div>
+
+                    <!-- Hydrogen Bonding Lines -->
+                    <div id="dna-bonds" class="flex gap-6 my-1 text-slate-600 text-xs font-mono"></div>
+
+                    <!-- Complementary Strand 3'-5' -->
+                    <div class="flex items-center gap-2 mt-3">
+                        <span class="text-xs font-mono text-mint-400 font-bold">3' -</span>
+                        <div id="dna-strand-complement" class="flex gap-2"></div>
+                        <span class="text-xs font-mono text-mint-400 font-bold">- 5'</span>
+                    </div>
+                </div>
+
+                <!-- Controls & Stats -->
+                <div class="flex flex-wrap items-center justify-between gap-4 pt-2">
+                    <div class="flex flex-wrap gap-2">
+                        <button onclick="addBase('A')" class="px-4 py-2 rounded-lg bg-emerald-600 hover:bg-emerald-500 font-bold text-xs transition-all">Add Adenine (A)</button>
+                        <button onclick="addBase('T')" class="px-4 py-2 rounded-lg bg-rose-600 hover:bg-rose-500 font-bold text-xs transition-all">Add Thymine (T)</button>
+                        <button onclick="addBase('C')" class="px-4 py-2 rounded-lg bg-sky-600 hover:bg-sky-500 font-bold text-xs transition-all">Add Cytosine (C)</button>
+                        <button onclick="addBase('G')" class="px-4 py-2 rounded-lg bg-amber-600 hover:bg-amber-500 font-bold text-xs transition-all">Add Guanine (G)</button>
+                        <button onclick="resetDnaSequence()" class="px-4 py-2 rounded-lg bg-slate-700 hover:bg-slate-600 font-bold text-xs transition-all">Reset Strand</button>
+                    </div>
+
+                    <div class="text-xs font-mono text-slate-300">
+                        Transcribed mRNA: <span id="mrna-output" class="font-bold text-mint-400">AUG...</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- LAB 3: Code Snippet Playground -->
+        <div id="lab-code-view" class="lab-content hidden rounded-3xl bg-navy-900 border border-navy-800 p-6 sm:p-8 text-white shadow-2xl">
+            <div class="grid lg:grid-cols-2 gap-6">
+                <!-- Code Editor Box -->
+                <div class="space-y-3">
+                    <div class="flex items-center justify-between">
+                        <span class="text-xs font-mono text-slate-400"><i class="fa-brands fa-python text-amber-400"></i> quantum_circuit.py</span>
+                        <button onclick="copyCode()" class="px-3 py-1 rounded bg-navy-800 hover:bg-navy-700 text-xs text-mint-400 font-semibold transition-all">
+                            <i class="fa-regular fa-copy"></i> Copy Code
+                        </button>
+                    </div>
+                    <textarea id="code-input" rows="10" class="w-full p-4 rounded-2xl bg-navy-950 font-mono text-xs text-emerald-300 border border-navy-800 focus:outline-none focus:border-teal-500 leading-relaxed">
+# ScienceMatrix Live Code Playground
+import numpy as np
+
+def HadamardGate():
+    return (1 / np.sqrt(2)) * np.array([[1, 1], [1, -1]])
+
+# Initial Qubit state |0>
+qubit = np.array([1, 0])
+
+# Apply Hadamard Transformation
+state = np.dot(HadamardGate(), qubit)
+print("Superposition State Vector:", state)
+print("Probability of |0>:", abs(state[0])**2)
+</textarea>
+                    <button onclick="runCodeSimulation()" class="w-full py-3 rounded-xl bg-gradient-to-r from-teal-500 to-mint-400 text-navy-950 font-bold text-sm hover:shadow-lg transition-all">
+                        <i class="fa-solid fa-play mr-2"></i> Run Python Simulation
+                    </button>
+                </div>
+
+                <!-- Simulation Output Window -->
+                <div class="space-y-3 flex flex-col">
+                    <span class="text-xs font-mono text-slate-400"><i class="fa-solid fa-terminal text-teal-400"></i> Execution Terminal</span>
+                    <div id="code-output" class="flex-1 p-4 rounded-2xl bg-navy-950 font-mono text-xs text-slate-200 border border-navy-800 whitespace-pre-wrap leading-relaxed overflow-y-auto min-h-[200px]">
+[Output Log Will Appear Here...]
+Press "Run Python Simulation" to execute the quantum state transformation.
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="tutorials" class="py-16 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="flex flex-col md:flex-row md:items-end justify-between mb-10 gap-6">
+            <div>
+                <span class="text-xs font-bold uppercase tracking-widest text-teal-600 dark:text-mint-400">Knowledge Base</span>
+                <h2 class="text-3xl sm:text-4xl font-extrabold text-navy-800 dark:text-white mt-1">Explore Tutorials</h2>
+            </div>
+
+            <!-- Filter Badges -->
+            <div class="flex flex-wrap gap-2">
+                <button onclick="filterCategory('all')" class="cat-filter-btn px-4 py-2 rounded-xl text-xs font-bold bg-teal-500 text-white shadow-md transition-all">All</button>
+                <button onclick="filterCategory('physics')" class="cat-filter-btn px-4 py-2 rounded-xl text-xs font-bold bg-slate-200 dark:bg-navy-800 text-slate-700 dark:text-slate-300 hover:bg-teal-500 hover:text-white transition-all">⚛️ Physics</button>
+                <button onclick="filterCategory('biology')" class="cat-filter-btn px-4 py-2 rounded-xl text-xs font-bold bg-slate-200 dark:bg-navy-800 text-slate-700 dark:text-slate-300 hover:bg-teal-500 hover:text-white transition-all">🧬 Biology</button>
+                <button onclick="filterCategory('chemistry')" class="cat-filter-btn px-4 py-2 rounded-xl text-xs font-bold bg-slate-200 dark:bg-navy-800 text-slate-700 dark:text-slate-300 hover:bg-teal-500 hover:text-white transition-all">🧪 Chemistry</button>
+                <button onclick="filterCategory('coding')" class="cat-filter-btn px-4 py-2 rounded-xl text-xs font-bold bg-slate-200 dark:bg-navy-800 text-slate-700 dark:text-slate-300 hover:bg-teal-500 hover:text-white transition-all">💻 Coding &amp; Data</button>
+            </div>
+        </div>
+
+        <!-- Tutorials Card Grid -->
+        <div id="tutorials-grid" class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <!-- Dynamic Content Injected via JS -->
+        </div>
+    </section>
+
+    <footer id="contact" class="mt-auto bg-navy-900 text-slate-300 border-t border-navy-800 pt-16 pb-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-10 mb-12">
+                
+                <!-- Col 1: Brand -->
+                <div class="md:col-span-2 space-y-4">
+                    <div class="flex items-center gap-3">
+                        <div class="w-9 h-9 rounded-lg bg-gradient-to-tr from-teal-500 to-mint-400 flex items-center justify-center text-white font-bold">
+                            <i class="fa-solid fa-atom"></i>
+                        </div>
+                        <span class="text-2xl font-black text-white">Science<span class="text-teal-400">Matrix</span></span>
+                    </div>
+                    <p class="text-sm text-slate-400 max-w-sm leading-relaxed">
+                        Interactive tutorial hub simplifying scientific theories, computer algorithms, and biological discoveries through visual learning.
+                    </p>
+                </div>
+
+                <!-- Col 2: Quick Links -->
+                <div>
+                    <h3 class="text-sm font-bold text-white uppercase tracking-wider mb-4">Quick Links</h3>
+                    <ul class="space-y-2 text-sm">
+                        <li><a href="#hero" class="hover:text-mint-400 transition-colors">Home Banner</a></li>
+                        <li><a href="#about" class="hover:text-mint-400 transition-colors">About Mission</a></li>
+                        <li><a href="#tutorials" class="hover:text-mint-400 transition-colors">All Tutorials</a></li>
+                        <li><a href="#labs" class="hover:text-mint-400 transition-colors">Simulation Sandbox</a></li>
+                    </ul>
+                </div>
+
+                <!-- Col 3: Newsletter -->
+                <div>
+                    <h3 class="text-sm font-bold text-white uppercase tracking-wider mb-4">Subscribe to Matrix</h3>
+                    <p class="text-xs text-slate-400 mb-3">Get new visual tutorials &amp; code breakdowns directly to your inbox.</p>
+                    <form onsubmit="handleSubscribe(event)" class="space-y-2">
+                        <input type="email" required placeholder="Enter your email" class="w-full px-3 py-2 text-xs rounded-lg bg-navy-950 border border-navy-800 text-white focus:outline-none focus:border-teal-500">
+                        <button type="submit" class="w-full py-2 rounded-lg bg-teal-500 hover:bg-teal-600 text-navy-950 font-bold text-xs transition-all">
+                            Join Newsletter
+                        </button>
+                    </form>
+                </div>
+
+            </div>
+
+            <div class="pt-8 border-t border-navy-800/80 flex flex-col sm:flex-row items-center justify-between text-xs text-slate-500 gap-4">
+                <p>&copy; <span id="year-copy"></span> ScienceMatrix. All rights reserved.</p>
+                <div class="flex gap-4 text-base">
+                    <a href="#" class="hover:text-mint-400 transition-colors" title="Twitter"><i class="fa-brands fa-x-twitter"></i></a>
+                    <a href="#" class="hover:text-mint-400 transition-colors" title="GitHub"><i class="fa-brands fa-github"></i></a>
+                    <a href="#" class="hover:text-mint-400 transition-colors" title="YouTube"><i class="fa-brands fa-youtube"></i></a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <div id="tutorial-modal" class="fixed inset-0 z-50 hidden bg-navy-950/80 backdrop-blur-sm flex items-center justify-center p-4">
+        <div class="bg-white dark:bg-navy-900 rounded-3xl max-w-3xl w-full max-h-[90vh] overflow-y-auto p-6 sm:p-10 shadow-2xl border border-slate-200 dark:border-navy-800 relative">
+            <!-- Close Button -->
+            <button onclick="closeTutorialModal()" class="absolute top-6 right-6 w-10 h-10 rounded-full bg-slate-100 dark:bg-navy-800 text-slate-600 dark:text-slate-300 hover:text-rose-500 flex items-center justify-center transition-all">
+                <i class="fa-solid fa-xmark text-lg"></i>
+            </button>
+
+            <div id="modal-content" class="space-y-6">
+                <!-- Modal details dynamically loaded -->
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Set dynamic copyright year
+        document.getElementById('year-copy').textContent = new Date().getFullYear();
+
+        /* -------------------------------------------------------------
+           1. Theme Toggle Logic
+        ------------------------------------------------------------- */
+        const themeToggleBtn = document.getElementById('theme-toggle');
+        const darkIcon = document.getElementById('theme-toggle-dark-icon');
+        const lightIcon = document.getElementById('theme-toggle-light-icon');
+
+        if (localStorage.getItem('color-theme') === 'dark' || (!('color-theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+            document.documentElement.classList.add('dark');
+            darkIcon.classList.remove('hidden');
+            lightIcon.classList.add('hidden');
+        } else {
+            document.documentElement.classList.remove('dark');
+            lightIcon.classList.remove('hidden');
+            darkIcon.classList.add('hidden');
+        }
+
+        themeToggleBtn.addEventListener('click', function() {
+            darkIcon.classList.toggle('hidden');
+            lightIcon.classList.toggle('hidden');
+
+            if (document.documentElement.classList.contains('dark')) {
+                document.documentElement.classList.remove('dark');
+                localStorage.setItem('color-theme', 'light');
+            } else {
+                document.documentElement.classList.add('dark');
+                localStorage.setItem('color-theme', 'dark');
+            }
+        });
+
+        /* -------------------------------------------------------------
+           2. Mobile Navigation Toggle
+        ------------------------------------------------------------- */
+        const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+
+        mobileMenuBtn.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+        });
+
+        document.querySelectorAll('.mobile-link').forEach(link => {
+            link.addEventListener('click', () => mobileMenu.classList.add('hidden'));
+        });
+
+        /* -------------------------------------------------------------
+           3. Hero Slider Logic
+        ------------------------------------------------------------- */
+        const slides = document.querySelectorAll('.slide-item');
+        const dots = document.querySelectorAll('.dot-btn');
+        let currentSlide = 0;
+        let slideInterval;
+
+        function showSlide(index) {
+            slides.forEach((slide, i) => {
+                if (i === index) {
+                    slide.classList.remove('hidden');
+                    slide.classList.add('active');
+                } else {
+                    slide.classList.add('hidden');
+                    slide.classList.remove('active');
+                }
+            });
+
+            dots.forEach((dot, i) => {
+                if (i === index) {
+                    dot.className = 'dot-btn w-8 h-2 rounded-full bg-mint-400 transition-all';
+                } else {
+                    dot.className = 'dot-btn w-2 h-2 rounded-full bg-white/40 hover:bg-white/70 transition-all';
+                }
+            });
+
+            currentSlide = index;
+        }
+
+        document.getElementById('next-slide').addEventListener('click', () => {
+            let next = (currentSlide + 1) % slides.length;
+            showSlide(next);
+            resetSliderTimer();
+        });
+
+        document.getElementById('prev-slide').addEventListener('click', () => {
+            let prev = (currentSlide - 1 + slides.length) % slides.length;
+            showSlide(prev);
+            resetSliderTimer();
+        });
+
+        dots.forEach(dot => {
+            dot.addEventListener('click', (e) => {
+                let idx = parseInt(e.target.getAttribute('data-index'));
+                showSlide(idx);
+                resetSliderTimer();
+            });
+        });
+
+        function startSliderTimer() {
+            slideInterval = setInterval(() => {
+                let next = (currentSlide + 1) % slides.length;
+                showSlide(next);
+            }, 6000);
+        }
+
+        function resetSliderTimer() {
+            clearInterval(slideInterval);
+            startSliderTimer();
+        }
+
+        startSliderTimer();
+
+        /* -------------------------------------------------------------
+           4. Tutorials Data & Dynamic Feed
+        ------------------------------------------------------------- */
+        const tutorialsData = [
+            {
+                id: 1,
+                title: "Quantum Computing: Superposition & Gates",
+                category: "physics",
+                categoryName: "Physics & Tech",
+                readTime: "8 min read",
+                difficulty: "Intermediate",
+                desc: "Explore qubits, Bloch spheres, and basic quantum matrix algebra with intuitive visual illustrations.",
+                content: `<p class="text-sm leading-relaxed text-slate-600 dark:text-slate-300">Quantum computing reimagines computational logic by moving beyond binary bits. Instead of existing strictly as a 0 or 1, qubits exist in a probabilistic linear combination known as superposition.</p>
+                <div class="my-4 p-4 rounded-xl bg-slate-100 dark:bg-navy-800 font-mono text-xs text-teal-600 dark:text-mint-400">|Ψ⟩ = α|0⟩ + β|1⟩  where |α|² + |β|² = 1</div>
+                <p class="text-sm leading-relaxed text-slate-600 dark:text-slate-300">When applying a Hadamard Gate, a definite bit is transformed into an equal superposition, unlocking quantum parallelism.</p>`
+            },
+            {
+                id: 2,
+                title: "CRISPR-Cas9 Gene Editing Mechanics",
+                category: "biology",
+                categoryName: "Biotechnology",
+                readTime: "6 min read",
+                difficulty: "Beginner",
+                desc: "How guide RNA directs Cas9 enzymes to precise DNA coordinates for molecular gene knockouts.",
+                content: `<p class="text-sm leading-relaxed text-slate-600 dark:text-slate-300">CRISPR consists of two key molecules: the Cas9 endonuclease enzyme and a synthetic guide RNA (gRNA). The gRNA matches a target sequence within the genome, guiding Cas9 to slice the DNA double helix.</p>`
+            },
+            {
+                id: 3,
+                title: "Neural Networks from First Principles in Python",
+                category: "coding",
+                categoryName: "Coding & Data",
+                readTime: "12 min read",
+                difficulty: "Advanced",
+                desc: "Step-by-step mathematical breakdown of activation functions and weight gradient optimization using NumPy.",
+                content: `<p class="text-sm leading-relaxed text-slate-600 dark:text-slate-300">Learn how forward propagation calculates node dot products and activation vectors, while gradient descent propagates loss backward to adjust parameters.</p>`
+            },
+            {
+                id: 4,
+                title: "Reaction Kinetics & Activation Energy Barriers",
+                category: "chemistry",
+                categoryName: "Chemistry",
+                readTime: "7 min read",
+                difficulty: "Beginner",
+                desc: "Understanding catalytic pathways, Maxwell-Boltzmann distributions, and collision theory models.",
+                content: `<p class="text-sm leading-relaxed text-slate-600 dark:text-slate-300">Chemical reactions occur when reactant particles collide with sufficient activation energy ($E_a$). Catalysts lower this energy threshold without being consumed in the reaction.</p>`
+            },
+            {
+                id: 5,
+                title: "Special Relativity & Spacetime Curvature",
+                category: "physics",
+                categoryName: "Physics",
+                readTime: "10 min read",
+                difficulty: "Intermediate",
+                desc: "Visualizing time dilation, Lorentz transformations, and light cone geometries near massive bodies.",
+                content: `<p class="text-sm leading-relaxed text-slate-600 dark:text-slate-300">Einstein's theory dictates that the speed of light is constant in all inertial frames, leading to counter-intuitive consequences like time dilation and length contraction.</p>`
+            },
+            {
+                id: 6,
+                title: "Data Structures: Graph Traversal Algorithms",
+                category: "coding",
+                categoryName: "Coding & Data",
+                readTime: "9 min read",
+                difficulty: "Intermediate",
+                desc: "Comparing Breadth-First Search (BFS) and Depth-First Search (DFS) with live queue and stack state tracing.",
+                content: `<p class="text-sm leading-relaxed text-slate-600 dark:text-slate-300">Graph traversal forms the core of route planning and social network analysis. Discover how queues maintain breadth layers while recursion navigates depth paths.</p>`
+            }
+        ];
+
+        const gridContainer = document.getElementById('tutorials-grid');
+
+        function renderTutorials(data) {
+            gridContainer.innerHTML = '';
+            if (data.length === 0) {
+                gridContainer.innerHTML = `<div class="col-span-full py-12 text-center text-slate-500">No matching tutorials found. Try another query or category.</div>`;
+                return;
+            }
+
+            data.forEach(item => {
+                const card = document.createElement('div');
+                card.className = "bg-white dark:bg-navy-900 rounded-2xl border border-slate-200/80 dark:border-navy-800 p-6 flex flex-col justify-between hover:shadow-xl transition-all group";
+                card.innerHTML = `
+                    <div>
+                        <div class="flex items-center justify-between gap-2 mb-4">
+                            <span class="px-3 py-1 rounded-full text-[11px] font-bold uppercase tracking-wider bg-teal-500/10 text-teal-600 dark:text-mint-400">
+                                ${item.categoryName}
+                            </span>
+                            <span class="text-xs font-semibold text-slate-400">${item.readTime}</span>
+                        </div>
+                        <h3 class="text-xl font-bold text-navy-800 dark:text-white group-hover:text-teal-500 dark:group-hover:text-mint-400 transition-colors mb-2">
+                            ${item.title}
+                        </h3>
+                        <p class="text-slate-600 dark:text-slate-300 text-sm mb-6 leading-relaxed">
+                            ${item.desc}
+                        </p>
+                    </div>
+                    <div class="flex items-center justify-between pt-4 border-t border-slate-100 dark:border-navy-800 text-xs">
+                        <span class="font-bold text-slate-500">Difficulty: <span class="text-navy-800 dark:text-slate-200">${item.difficulty}</span></span>
+                        <button onclick="openTutorialModal(${item.id})" class="font-bold text-teal-600 dark:text-mint-400 hover:underline flex items-center gap-1">
+                            Read Guide <i class="fa-solid fa-chevron-right text-[10px]"></i>
+                        </button>
+                    </div>
+                `;
+                gridContainer.appendChild(card);
+            });
+        }
+
+        renderTutorials(tutorialsData);
+
+        /* Search & Category Filter logic */
+        function filterCategory(cat) {
+            document.querySelectorAll('.cat-filter-btn').forEach(btn => {
+                btn.className = "cat-filter-btn px-4 py-2 rounded-xl text-xs font-bold bg-slate-200 dark:bg-navy-800 text-slate-700 dark:text-slate-300 hover:bg-teal-500 hover:text-white transition-all";
+            });
+            event.target.className = "cat-filter-btn px-4 py-2 rounded-xl text-xs font-bold bg-teal-500 text-white shadow-md transition-all";
+
+            if (cat === 'all') {
+                renderTutorials(tutorialsData);
+            } else {
+                const filtered = tutorialsData.filter(t => t.category === cat);
+                renderTutorials(filtered);
+            }
+        }
+
+        const globalSearch = document.getElementById('global-search');
+        const mobileSearch = document.getElementById('mobile-search');
+
+        function handleSearch(query) {
+            const q = query.toLowerCase();
+            const filtered = tutorialsData.filter(t => 
+                t.title.toLowerCase().includes(q) || 
+                t.desc.toLowerCase().includes(q) ||
+                t.categoryName.toLowerCase().includes(q)
+            );
+            renderTutorials(filtered);
+        }
+
+        globalSearch.addEventListener('input', (e) => handleSearch(e.target.value));
+        mobileSearch.addEventListener('input', (e) => handleSearch(e.target.value));
+
+        /* -------------------------------------------------------------
+           5. Interactive Labs Logic
+        ------------------------------------------------------------- */
+        function switchLab(labName) {
+            document.querySelectorAll('.lab-content').forEach(el => el.classList.add('hidden'));
+            document.querySelectorAll('.lab-tab-btn').forEach(btn => {
+                btn.className = "lab-tab-btn px-4 py-2 rounded-lg text-slate-600 dark:text-slate-300 hover:text-navy-800 dark:hover:text-white transition-all";
+            });
+
+            document.getElementById(`lab-${labName}-view`).classList.remove('hidden');
+            document.getElementById(`tab-${labName}`).className = "lab-tab-btn px-4 py-2 rounded-lg bg-white dark:bg-teal-500 text-navy-800 dark:text-white shadow-sm transition-all";
+            
+            if (labName === 'atom') {
+                initAtomicCanvas();
+            }
+        }
+
+        /* LAB 1: Atomic Canvas Visualizer */
+        const atomCanvas = document.getElementById('atomic-canvas');
+        const ctx = atomCanvas.getContext('2d');
+        const protonsSlider = document.getElementById('protons-slider');
+        const speedSlider = document.getElementById('speed-slider');
+
+        let protons = 6;
+        let speed = 1.5;
+        let angle = 0;
+        let animId;
+
+        const atomNames = ["", "Hydrogen (H)", "Helium (He)", "Lithium (Li)", "Beryllium (Be)", "Boron (B)", "Carbon (C)", "Nitrogen (N)", "Oxygen (O)", "Fluorine (F)", "Neon (Ne)", "Sodium (Na)", "Magnesium (Mg)"];
+        const atomCategories = ["", "Non-metal", "Noble Gas", "Alkali Metal", "Alkaline Earth", "Metalloid", "Non-metal", "Non-metal", "Non-metal", "Halogen", "Noble Gas", "Alkali Metal", "Alkaline Earth"];
+
+        protonsSlider.addEventListener('input', (e) => {
+            protons = parseInt(e.target.value);
+            document.getElementById('protons-val').textContent = protons;
+            document.getElementById('electron-count').textContent = protons;
+            document.getElementById('atom-name-display').textContent = atomNames[protons] || `Element ${protons}`;
+            document.getElementById('atom-category').textContent = atomCategories[protons] || "Element";
+            document.getElementById('valence-count').textContent = protons > 2 ? (protons - 2) % 8 || 8 : protons;
+        });
+
+        speedSlider.addEventListener('input', (e) => {
+            speed = parseFloat(e.target.value);
+            document.getElementById('speed-val').textContent = `${speed}x`;
+        });
+
+        function initAtomicCanvas() {
+            function resizeCanvas() {
+                atomCanvas.width = atomCanvas.parentElement.clientWidth;
+                atomCanvas.height = atomCanvas.parentElement.clientHeight || 360;
+            }
+            resizeCanvas();
+
+            function drawAtom() {
+                ctx.clearRect(0, 0, atomCanvas.width, atomCanvas.height);
+                const centerX = atomCanvas.width / 2;
+                const centerY = atomCanvas.height / 2;
+
+                // Nucleus Glow & Core
+                ctx.save();
+                ctx.shadowBlur = 15;
+                ctx.shadowColor = "#02c39a";
+                ctx.beginPath();
+                ctx.arc(centerX, centerY, 14 + protons * 0.8, 0, Math.PI * 2);
+                ctx.fillStyle = "#00a896";
+                ctx.fill();
+                ctx.restore();
+
+                // Protons indicator
+                ctx.fillStyle = "#ffffff";
+                ctx.font = "bold 11px Inter";
+                ctx.textAlign = "center";
+                ctx.textBaseline = "middle";
+                ctx.fillText(`+${protons}`, centerX, centerY);
+
+                // Electron Shells
+                const shells = protons > 2 ? [1, 2] : [1];
+                const orbitRadii = [60, 110];
+
+                shells.forEach((shellIndex, idx) => {
+                    const radius = orbitRadii[idx];
+                    ctx.beginPath();
+                    ctx.arc(centerX, centerY, radius, 0, Math.PI * 2);
+                    ctx.strokeStyle = "rgba(0, 168, 150, 0.25)";
+                    ctx.lineWidth = 1.5;
+                    ctx.setLineDash([4, 4]);
+                    ctx.stroke();
+                    ctx.setLineDash([]);
+
+                    // Draw Electrons on shell
+                    const countInShell = idx === 0 ? Math.min(protons, 2) : protons - 2;
+                    for (let i = 0; i < countInShell; i++) {
+                        const eAngle = angle * speed + (i * (Math.PI * 2 / countInShell)) * (idx % 2 === 0 ? 1 : -1);
+                        const ex = centerX + Math.cos(eAngle) * radius;
+                        const ey = centerY + Math.sin(eAngle) * radius;
+
+                        ctx.save();
+                        ctx.shadowBlur = 10;
+                        ctx.shadowColor = "#02c39a";
+                        ctx.beginPath();
+                        ctx.arc(ex, ey, 5, 0, Math.PI * 2);
+                        ctx.fillStyle = "#02c39a";
+                        ctx.fill();
+                        ctx.restore();
+                    }
+                });
+
+                angle += 0.02;
+                animId = requestAnimationFrame(drawAtom);
+            }
+
+            cancelAnimationFrame(animId);
+            drawAtom();
+        }
+
+        window.addEventListener('resize', () => {
+            if (!document.getElementById('lab-atom-view').classList.contains('hidden')) {
+                initAtomicCanvas();
+            }
+        });
+
+        // Initialize default lab canvas
+        initAtomicCanvas();
+
+        /* LAB 2: DNA Builder Logic */
+        let dnaSequence = ['A', 'T', 'C', 'G'];
+
+        const complementMap = { 'A': 'T', 'T': 'A', 'C': 'G', 'G': 'C' };
+        const mrnaMap = { 'A': 'U', 'T': 'A', 'C': 'G', 'G': 'C' };
+
+        function renderDna() {
+            const primaryEl = document.getElementById('dna-strand-primary');
+            const complementEl = document.getElementById('dna-strand-complement');
+            const bondsEl = document.getElementById('dna-bonds');
+            const mrnaEl = document.getElementById('mrna-output');
+
+            primaryEl.innerHTML = '';
+            complementEl.innerHTML = '';
+            bondsEl.innerHTML = '';
+
+            let mrnaStrand = '';
+
+            dnaSequence.forEach(base => {
+                const comp = complementMap[base];
+                mrnaStrand += mrnaMap[base];
+
+                const colorMap = {
+                    'A': 'bg-emerald-500/20 text-emerald-300 border-emerald-500/40',
+                    'T': 'bg-rose-500/20 text-rose-300 border-rose-500/40',
+                    'C': 'bg-sky-500/20 text-sky-300 border-sky-500/40',
+                    'G': 'bg-amber-500/20 text-amber-300 border-amber-500/40'
+                };
+
+                primaryEl.innerHTML += `<div class="px-3 py-1.5 rounded-lg border font-mono font-bold text-xs ${colorMap[base]}">${base}</div>`;
+                complementEl.innerHTML += `<div class="px-3 py-1.5 rounded-lg border font-mono font-bold text-xs ${colorMap[comp]}">${comp}</div>`;
+                bondsEl.innerHTML += `<div>|||</div>`;
+            });
+
+            mrnaEl.textContent = mrnaStrand;
+        }
+
+        function addBase(b) {
+            if (dnaSequence.length >= 10) dnaSequence.shift();
+            dnaSequence.push(b);
+            renderDna();
+        }
+
+        function resetDnaSequence() {
+            dnaSequence = ['A', 'T', 'C', 'G'];
+            renderDna();
+        }
+
+        renderDna();
+
+        /* LAB 3: Code Simulator Logic */
+        function copyCode() {
+            const code = document.getElementById('code-input').value;
+            navigator.clipboard.writeText(code);
+            alert("Code snippet copied to clipboard!");
+        }
+
+        function runCodeSimulation() {
+            const outputEl = document.getElementById('code-output');
+            outputEl.textContent = "Running quantum Python simulation...\n";
+            setTimeout(() => {
+                outputEl.textContent = 
+`>>> Executing quantum_circuit.py ...
+[State Matrix initialized: |0>]
+Hadamard Matrix Applied:
+[[ 0.70710678  0.70710678]
+ [ 0.70710678 -0.70710678]]
+
+Superposition State Vector: [0.70710678, 0.70710678]
+Probability Measurement of |0>: 0.5000 (50.0%)
+Probability Measurement of |1>: 0.5000 (50.0%)
+
+Transformation complete. Quantum state successfully created.`;
+            }, 500);
+        }
+
+        /* -------------------------------------------------------------
+           6. Tutorial Reader Modal
+        ------------------------------------------------------------- */
+        const modal = document.getElementById('tutorial-modal');
+        const modalContent = document.getElementById('modal-content');
+
+        function openTutorialModal(id) {
+            const tutorial = tutorialsData.find(t => t.id === id);
+            if (!tutorial) return;
+
+            modalContent.innerHTML = `
+                <span class="px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider bg-teal-500/10 text-teal-600 dark:text-mint-400">
+                    ${tutorial.categoryName}
+                </span>
+                <h2 class="text-2xl sm:text-3xl font-black text-navy-800 dark:text-white mt-2">${tutorial.title}</h2>
+                <div class="flex items-center gap-4 text-xs font-semibold text-slate-400 border-b border-slate-200 dark:border-navy-800 pb-4">
+                    <span>${tutorial.readTime}</span> • <span>Difficulty: ${tutorial.difficulty}</span>
+                </div>
+                <div class="mt-4 font-sans text-slate-700 dark:text-slate-200">
+                    ${tutorial.content}
+                </div>
+                <div class="pt-6 border-t border-slate-200 dark:border-navy-800 flex justify-end">
+                    <button onclick="closeTutorialModal()" class="px-6 py-2.5 rounded-xl bg-teal-500 text-white font-bold text-xs hover:bg-teal-600 transition-all">
+                        Done Reading
+                    </button>
+                </div>
+            `;
+            modal.classList.remove('hidden');
+        }
+
+        function closeTutorialModal() {
+            modal.classList.add('hidden');
+        }
+
+        /* -------------------------------------------------------------
+           7. Newsletter Form Handler
+        ------------------------------------------------------------- */
+        function handleSubscribe(e) {
+            e.preventDefault();
+            alert("Thank you for subscribing to ScienceMatrix updates!");
+            e.target.reset();
+        }
+    </script>
+</body>
+</html>
